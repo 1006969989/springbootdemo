@@ -1,0 +1,9 @@
+version: '3'
+services:
+  #服务名称
+  springbootdemo:
+    #镜像
+    image: springboot:1.0
+    container_name: springbootdemo-1.0
+    network_mode: "host"
+
