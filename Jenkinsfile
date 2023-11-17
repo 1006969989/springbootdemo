@@ -64,16 +64,17 @@ pipeline {
           return params.PROJECT_VERSION =~ /v.*/
         }
       }
-    steps {
-      echo 'git发布版本'
-      input(message: 'git发布版本'+params.PROJECT_VERSION+' ?')
-      withCredentials([usernamePassword(credentialsId: "$GITHUB_CREDENTIAL_ID", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-        sh 'git config --global user.email "$GITHUB_EMAIL" '
-        sh 'git config --global user.name "$GITHUB_USERNAME" '
-        sh 'git config -list --global'
-        sh 'git tag -a $PROJECT_VERSION -m "$PROJECT_VERSION" '
-        //sh 'git push http://$GIT_USERNAME:$GIT_PASSWORD@github.com/$GITHUB_USERNAME/$PROJECT_NAME.git --tags --ipv4'
-        sh 'echo git push http://$GIT_USERNAME:$GIT_PASSWORD@github.com/$GITHUB_USERNAME/$PROJECT_NAME.git --tags --ipv4'
+      steps {
+        echo 'git发布版本'
+        input(message: 'git发布版本'+params.PROJECT_VERSION+' ?')
+        withCredentials([usernamePassword(credentialsId: "$GITHUB_CREDENTIAL_ID", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+          sh 'git config --global user.email "$GITHUB_EMAIL" '
+          sh 'git config --global user.name "$GITHUB_USERNAME" '
+          sh 'git config -list --global'
+          sh 'git tag -a $PROJECT_VERSION -m "$PROJECT_VERSION" '
+          //sh 'git push http://$GIT_USERNAME:$GIT_PASSWORD@github.com/$GITHUB_USERNAME/$PROJECT_NAME.git --tags --ipv4'
+          sh 'echo git push http://$GIT_USERNAME:$GIT_PASSWORD@github.com/$GITHUB_USERNAME/$PROJECT_NAME.git --tags --ipv4'
+        }
       }
     }
 
